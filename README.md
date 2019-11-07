@@ -8,15 +8,11 @@ commercetoos decorator contains:
 - [requestBuilder](https://www.npmjs.com/package/@commercetools/sdk-client)
   util for build API uris
 
-a name="install"></a>
-
 ## Install
 
 ```
 npm i fastify-commercetools --save
 ```
-
-<a name="usage"></a>
 
 ## Usage
 
