@@ -11,8 +11,16 @@ module.exports = function(fastify, opts, next) {
     clientId,
     clientSecret,
     concurrency,
-    addLogger
+    loggingConfig = {}
   } = opts;
+
+  const {
+    enable = true,
+    useFastifyLogger = true,
+    request = true,
+    body = false,
+    error = true
+  } = loggingConfig;
 
   const config = {
     commercetools: {
@@ -29,7 +37,14 @@ module.exports = function(fastify, opts, next) {
         host,
         fetch
       },
-      addLogger
+      loggingConfig: {
+        enable,
+        useFastifyLogger,
+        request,
+        body,
+        error,
+        logger: fastify.log
+      }
     },
     concurrency: concurrency || 10
   };
