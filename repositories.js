@@ -27,6 +27,7 @@ const SubscriptionRepository = require("./lib/repositories/subscription");
 const TaxCategoryRepository = require("./lib/repositories/tax-category");
 const TypeRepository = require("./lib/repositories/type");
 const ZoneRepository = require("./lib/repositories/zone");
+const StoreRepository = require("./lib/repositories/store");
 
 module.exports = connection => ({
   CartDiscountRepository: new CartDiscountRepository(connection),
@@ -57,5 +58,6 @@ module.exports = connection => ({
   SubscriptionRepository: new SubscriptionRepository(connection),
   TaxCategoryRepository: new TaxCategoryRepository(connection),
   TypeRepository: new TypeRepository(connection),
-  ZoneRepository: new ZoneRepository(connection)
+  ZoneRepository: new ZoneRepository(connection),
+  StoreRepository: new StoreRepository(connection)
 });
