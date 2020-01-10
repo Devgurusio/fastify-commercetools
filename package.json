@@ -4,13 +4,42 @@
   "description": "Fastify commercetools plugin",
   "main": "index.js",
   "scripts": {
-    "test": "LOG_LEVEL=silent jest"
+    "test": "LOG_LEVEL=silent jest",
+    "lint": "eslint .",
+    "publish:patch": "npm version patch && npm publish",
+    "publish:minor": "npm version minor && npm publish",
+    "publish:major": "npm version major && npm publish"
   },
+  "keywords": [
+    "fastify",
+    "fastify-plugin",
+    "commercetools",
+    "e-commerce"
+  ],
   "repository": {
     "type": "git",
-    "url": "git@bitbucket.org:devgurus/fastify-commercetools.git"
+    "url": "git@github.com:Devgurusio/fastify-commercetools.git"
   },
-  "author": "Federico Moro",
+  "contributors": [
+    {
+      "name": "Federico Moro",
+      "url": "https://github.com/fededevgurus"
+    },
+    {
+      "name": "Xema Yebenes",
+      "url": "https://github.com/xemayebenes"
+    },
+    {
+      "name": "Florian Villa",
+      "url": "https://github.com/FlorianVilla"
+    },
+    {
+      "name": "Ruben Brieva",
+      "url": "https://github.com/rubenbrieva"
+    }
+  ],
+  "author": "Federico Moro <fede@devgurus.io>",
+  "homepage": "https://github.com/Devgurusio/fastify-commercetools",
   "license": "ISC",
   "dependencies": {
     "@commercetools/api-request-builder": "^4.1.1",
