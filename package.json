@@ -44,7 +44,7 @@
   "dependencies": {
     "@commercetools/api-request-builder": "^4.1.1",
     "@commercetools/sdk-client": "^1.5.10",
-    "@commercetools/sdk-middleware-auth": "^4.0.10",
+    "@commercetools/sdk-middleware-auth": "^6.1.4",
     "@commercetools/sdk-middleware-http": "^4.0.9",
     "@commercetools/sdk-middleware-logger": "^1.0.7",
     "@commercetools/sdk-middleware-queue": "^1.1.7",
@@ -57,9 +57,9 @@
     "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-jest": "^22.1.2",
     "eslint-plugin-prettier": "^3.0.0",
-    "fastify": "^2.15.1",
+    "fastify": "^1.13.1",
     "jest": "^25.0.0",
-    "prettier-eslint": "^8.8.2"
+    "prettier-eslint": "^11.0.0"
   },
   "eslintConfig": {
     "root": true,
