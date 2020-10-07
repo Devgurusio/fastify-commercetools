@@ -57,7 +57,7 @@
     "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-jest": "^22.1.2",
     "eslint-plugin-prettier": "^3.0.0",
-    "fastify": "^1.13.1",
+    "fastify": "^2.15.1",
     "jest": "^25.0.0",
     "prettier-eslint": "^11.0.0"
   },
