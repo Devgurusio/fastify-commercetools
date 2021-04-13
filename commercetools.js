@@ -1,9 +1,9 @@
-const { createRequestBuilder } = require("@commercetools/api-request-builder");
-const fetch = require("node-fetch");
-const Connection = require("./lib/commercetools/connection");
-const Repositories = require("./repositories");
+const { createRequestBuilder } = require('@commercetools/api-request-builder');
+const fetch = require('node-fetch');
+const Connection = require('./lib/commercetools/connection');
+const Repositories = require('./repositories');
 
-module.exports = function(fastify, opts, next) {
+module.exports = function (fastify, opts, next) {
   const {
     host,
     oauthHost,
@@ -67,7 +67,7 @@ module.exports = function(fastify, opts, next) {
     try {
       return await client.execute(request);
     } catch (err) {
-      if (typeof err === "object") {
+      if (typeof err === 'object') {
         // eslint-disable-next-line
         const { headers, ...error } = err;
         throw error;
@@ -77,7 +77,7 @@ module.exports = function(fastify, opts, next) {
   };
   const requestBuilder = () => createRequestBuilder({ projectKey });
   const repositories = Repositories(connection);
-  fastify.decorate("commercetools", {
+  fastify.decorate('commercetools', {
     client: { ...client, execute },
     requestBuilder,
     repositories

@@ -1,5 +1,5 @@
-const fp = require("fastify-plugin");
-const commercetools = require("./commercetools");
+const fp = require('fastify-plugin');
+const commercetools = require('./commercetools');
 
 /**
  * @callback next
@@ -22,7 +22,7 @@ const commercetools = require("./commercetools");
  */
 function plugin(fastify, opts, next) {
   if (!opts.commercetools) {
-    return next(new Error("Missing commercetools key in options"));
+    return next(new Error('Missing commercetools key in options'));
   }
   const {
     host,
@@ -32,19 +32,19 @@ function plugin(fastify, opts, next) {
     clientSecret
   } = opts.commercetools;
   if (!host) {
-    return next(new Error("Missing commercetools.host"));
+    return next(new Error('Missing commercetools.host'));
   } else if (!oauthHost) {
-    return next(new Error("Missing commercetools.oauthHost"));
+    return next(new Error('Missing commercetools.oauthHost'));
   } else if (!projectKey) {
-    return next(new Error("Missing commercetools.projectKey"));
+    return next(new Error('Missing commercetools.projectKey'));
   } else if (!clientId) {
-    return next(new Error("Missing commercetools.clientId"));
+    return next(new Error('Missing commercetools.clientId'));
   } else if (!clientSecret) {
-    return next(new Error("Missing commercetools.clientSecret"));
+    return next(new Error('Missing commercetools.clientSecret'));
   }
   commercetools(fastify, opts.commercetools, next);
 }
 
 module.exports = fp(plugin, {
-  name: "fastify-commercetools"
+  name: 'fastify-commercetools'
 });

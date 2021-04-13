@@ -1,19 +1,19 @@
-const Fastify = require("fastify");
-const fastifyCommercetools = require("../index");
+const Fastify = require('fastify');
+const fastifyCommercetools = require('../index');
 
 const commercetoolsInfo = {
   commercetools: {
-    host: "https://api.commercetools.co",
-    oauthHost: "https://auth.commercetools.co",
-    projectKey: "projectKey",
-    clientId: "clientId",
-    clientSecret: "clientSecret",
+    host: 'https://api.commercetools.co',
+    oauthHost: 'https://auth.commercetools.co',
+    projectKey: 'projectKey',
+    clientId: 'clientId',
+    clientSecret: 'clientSecret',
     concurrency: 5
   }
 };
 
-describe("Plugin", () => {
-  test("should fail when no options provided", done => {
+describe('Plugin', () => {
+  test('should fail when no options provided', done => {
     const fastify = Fastify();
     fastify.register(fastifyCommercetools, undefined);
     fastify.ready(err => {
@@ -21,7 +21,7 @@ describe("Plugin", () => {
       done();
     });
   });
-  test("should fail when no commercetools option provided", done => {
+  test('should fail when no commercetools option provided', done => {
     const fastify = Fastify();
     fastify.register(fastifyCommercetools, {});
     fastify.ready(err => {
@@ -29,7 +29,7 @@ describe("Plugin", () => {
       done();
     });
   });
-  test("should fail when no commercetools.host option provided", done => {
+  test('should fail when no commercetools.host option provided', done => {
     const fastify = Fastify();
     fastify.register(fastifyCommercetools, {
       commercetools: { ...commercetoolsInfo.commercetools, host: null }
@@ -39,7 +39,7 @@ describe("Plugin", () => {
       done();
     });
   });
-  test("should fail when no commercetools.oauthHost option provided", done => {
+  test('should fail when no commercetools.oauthHost option provided', done => {
     const fastify = Fastify();
     fastify.register(fastifyCommercetools, {
       commercetools: { ...commercetoolsInfo.commercetools, oauthHost: null }
@@ -49,7 +49,7 @@ describe("Plugin", () => {
       done();
     });
   });
-  test("should fail when no commercetools.projectKey option provided", done => {
+  test('should fail when no commercetools.projectKey option provided', done => {
     const fastify = Fastify();
     fastify.register(fastifyCommercetools, {
       commercetools: {
@@ -62,7 +62,7 @@ describe("Plugin", () => {
       done();
     });
   });
-  test("should fail when no commercetools.clientId option provided", done => {
+  test('should fail when no commercetools.clientId option provided', done => {
     const fastify = Fastify();
     fastify.register(fastifyCommercetools, {
       commercetools: { ...commercetoolsInfo.commercetools, clientId: null }
@@ -72,7 +72,7 @@ describe("Plugin", () => {
       done();
     });
   });
-  test("should fail when no commercetools.clientSecret option provided", done => {
+  test('should fail when no commercetools.clientSecret option provided', done => {
     const fastify = Fastify();
     fastify.register(fastifyCommercetools, {
       commercetools: {
@@ -85,7 +85,7 @@ describe("Plugin", () => {
       done();
     });
   });
-  test("should not fail when no commercetools.concurrency option provided", done => {
+  test('should not fail when no commercetools.concurrency option provided', done => {
     const fastify = Fastify();
     fastify.register(fastifyCommercetools, {
       commercetools: {
@@ -98,7 +98,7 @@ describe("Plugin", () => {
       done();
     });
   });
-  test("fastify.read should not return error", done => {
+  test('fastify.read should not return error', done => {
     const fastify = Fastify();
     fastify.register(fastifyCommercetools, commercetoolsInfo);
 
@@ -107,7 +107,7 @@ describe("Plugin", () => {
       done();
     });
   });
-  test("fastify.commercetools should exist", done => {
+  test('fastify.commercetools should exist', done => {
     const fastify = Fastify();
     fastify.register(fastifyCommercetools, commercetoolsInfo);
 
@@ -116,7 +116,7 @@ describe("Plugin", () => {
       done();
     });
   });
-  test("fastify.commercetools.client should be defined", done => {
+  test('fastify.commercetools.client should be defined', done => {
     const fastify = Fastify();
     fastify.register(fastifyCommercetools, commercetoolsInfo);
 
@@ -125,7 +125,7 @@ describe("Plugin", () => {
       done();
     });
   });
-  test("fastify.commercetools.requestBuilder should be defined", done => {
+  test('fastify.commercetools.requestBuilder should be defined', done => {
     const fastify = Fastify();
     fastify.register(fastifyCommercetools, commercetoolsInfo);
 
