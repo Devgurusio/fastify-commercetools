@@ -52,7 +52,7 @@ fastify.post("/", schemas.signUp, async (request, reply) => {
       body: JSON.stringify({ email, password })
     });
 
-    reply.code(200).send(esponse.body.customer);
+    reply.code(200).send(response.body.customer);
   } catch (error) {
     handleCTError(request, reply, error);
   }
