@@ -94,7 +94,7 @@ describe('Plugin', () => {
       }
     });
     fastify.ready(err => {
-      expect(err).toBeDefined();
+      expect(err).toBeUndefined();
       done();
     });
   });
@@ -103,7 +103,7 @@ describe('Plugin', () => {
     fastify.register(fastifyCommercetools, commercetoolsInfo);
 
     fastify.ready(err => {
-      expect(err).toBeNull();
+      expect(err).toBeUndefined();
       done();
     });
   });
