@@ -1,20 +1,21 @@
 {
   "name": "fastify-commercetools",
-  "version": "1.0.7",
+  "version": "2.0.0",
   "description": "Fastify commercetools plugin",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "LOG_LEVEL=silent jest",
+    "build": "tsc -p tsconfig.json",
     "lint": "eslint .",
     "lint-fix": "eslint --fix .",
+    "lint-md": "remark -f .",
     "publish:patch": "npm version patch && npm publish",
     "publish:minor": "npm version minor && npm publish",
-    "publish:major": "npm version major && npm publish"
+    "publish:major": "npm version major && npm publish",
+    "test": "jest"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint-fix && npm run lint-md && npm test"
-    }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Devgurusio/fastify-commercetools.git"
   },
   "keywords": [
     "fastify",
@@ -22,10 +23,6 @@
     "commercetools",
     "e-commerce"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:Devgurusio/fastify-commercetools.git"
-  },
   "contributors": [
     {
       "name": "Federico Moro",
@@ -45,33 +42,46 @@
     }
   ],
   "author": "Federico Moro <fede@devgurus.io>",
-  "homepage": "https://github.com/Devgurusio/fastify-commercetools",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Devgurusio/fastify-commercetools/issues"
+  },
+  "homepage": "https://github.com/Devgurusio/fastify-commercetools#readme",
   "dependencies": {
-    "@commercetools/api-request-builder": "^5.6.3",
-    "@commercetools/sdk-client": "^2.1.2",
-    "@commercetools/sdk-middleware-auth": "^6.1.4",
-    "@commercetools/sdk-middleware-http": "^6.0.9",
-    "@commercetools/sdk-middleware-logger": "^2.1.1",
-    "@commercetools/sdk-middleware-queue": "^2.1.4",
-    "@commercetools/sdk-middleware-user-agent": "^2.1.5",
-    "fastify-plugin": "^3.0.0",
-    "node-fetch": "^2.6.1"
+    "@commercetools/platform-sdk": "^2.5.0",
+    "@commercetools/sdk-client-v2": "^1.2.0",
+    "fastify-plugin": "^3.0.1",
+    "isomorphic-fetch": "^3.0.0"
   },
   "devDependencies": {
-    "eslint": "^7.12.0",
-    "eslint-config-prettier": "^6.14.0",
-    "eslint-plugin-jest": "^24.1.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "fastify": "^3.7.0",
-    "husky": "^6.0.0",
-    "jest": "^26.6.1",
-    "prettier-eslint": "^11.0.0"
+    "@types/isomorphic-fetch": "^0.0.35",
+    "@types/jest": "^27.0.2",
+    "@typescript-eslint/eslint-plugin": "^5.3.1",
+    "@typescript-eslint/parser": "^5.3.1",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-typescript": "^2.5.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jest": "^25.2.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "fastify": "^3.23.1",
+    "husky": "^7.0.4",
+    "jest": "^27.3.1",
+    "prettier-eslint": "^13.0.0",
+    "remark-cli": "^10.0.0",
+    "remark-preset-lint-recommended": "^6.1.1",
+    "ts-jest": "^27.0.7",
+    "typescript": "^4.4.4"
   },
-  "jest": {
-    "clearMocks": true,
-    "collectCoverage": true,
-    "coverageDirectory": "coverage",
-    "testEnvironment": "node"
-  }
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint-fix && npm run lint-md && npm test"
+    }
+  },
+  "remarkConfig": {
+    "plugins": [
+      "remark-preset-lint-recommended"
+    ]
+  },
+  "files": ["dist/**/*"]
 }

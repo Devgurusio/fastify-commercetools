@@ -3,10 +3,7 @@
 commercetools fastify plugin that decorates fastify with commercetools key.
 commercetoos decorator contains:
 
-- [client](https://www.npmjs.com/package/@commercetools/api-request-builder)
-  commercetools client to execute requests
-- [requestBuilder](https://www.npmjs.com/package/@commercetools/sdk-client)
-  util for build API uris
+-   [requestBuilder](https://www.npmjs.com/package/@commercetools/platform-sdk) commercetools by project key request builder
 
 ## Install
 
@@ -24,54 +21,48 @@ Add it to your project with `register` and pass it some basic options.
 const fastify = require("fastify")();
 
 fastify.register(require("fastify-commercetools"), {
-  commercetools: {
-    host: "https://api.commercetools.co",
-    oauthHost: "https://auth.commercetools.co",
+  auth: {
+    host: "https://auth.commercetools.co",
     projectKey: "projectKey",
-    clientId: "clientId",
-    clientSecret: "clientSecret",
-    concurrency: 5
-  }
+    credentials: {
+      clientId: "clientId",
+      clientSecret: "clientSecret"
+    }
+  },
+  http: {
+    host: "https://api.commercetools.co",
+    enableRetry: true,
+    retryConfig: {
+      maxRetries: 3
+    },
+  },
+  projectKey: "projectKey"
 });
 ```
 
 Once you have register the plugin you can use the commercetools decorator to
 perform actions
 
-### Using it as commercetools sdk
+### Using it
 
 ```js
 fastify.post("/", schemas.signUp, async (request, reply) => {
-  const { client, requestBuilder } = fastify.commercetools;
-  const { email, password } = request.body;
+  const { commercetools: { requestBuilder } } = fastify;
+  const { body } = request;
 
   try {
-    const response = await client.execute({
-      uri: requestBuilder().customers.build(),
-      method: "POST",
-      body: JSON.stringify({ email, password })
-    });
+    const customerSignInResult = await requestBuilder()
+      .customers()
+      .post({ body })
+      .execute();
 
-    reply.code(200).send(response.body.customer);
+    reply.code(200).send(customerSignInResult.body.customer);
   } catch (error) {
     handleCTError(request, reply, error);
   }
 });
 ```
 
-### Using it as service
+## Warning
 
-```js
-fastify.post("/", schemas.signUp, async (request, reply) => {
-  const { CustomerRepository } = fastify.commercetools.repositories;
-  const { email, password } = request.body;
-
-  try {
-    const customer = await CustomerRepository.create({ email, password });
-
-    reply.code(200).send(customer);
-  } catch (error) {
-    handleCTError(request, reply, error);
-  }
-});
-```
+This version is not backward compatible with version 1.x.x
