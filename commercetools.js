@@ -11,7 +11,8 @@ module.exports = function (fastify, opts, next) {
     clientId,
     clientSecret,
     concurrency,
-    loggingConfig = {}
+    loggingConfig = {},
+    allowedHeaders = []
   } = opts;
 
   const {
@@ -44,7 +45,8 @@ module.exports = function (fastify, opts, next) {
         body,
         error,
         logger: fastify.log
-      }
+      },
+      allowedHeaders
     },
     concurrency: concurrency || 10
   };

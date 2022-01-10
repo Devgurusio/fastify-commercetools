@@ -30,7 +30,8 @@ fastify.register(require("fastify-commercetools"), {
     projectKey: "projectKey",
     clientId: "clientId",
     clientSecret: "clientSecret",
-    concurrency: 5
+    concurrency: 5,
+    allowedHeaders: []
   }
 });
 ```
