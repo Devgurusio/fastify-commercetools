@@ -14,11 +14,11 @@ import {
 } from "@commercetools/platform-sdk";
 import { ByProjectKeyRequestBuilder } from "@commercetools/platform-sdk/dist/declarations/src/generated/client/by-project-key-request-builder";
 
-import { FastifyCommercetoolsPluginOptions } from "./fastify-commercetools-opts-type";
+import { FastifyCommercetoolsOptions } from "./fastify-commercetools-options";
 
 export default (
   fastify: FastifyInstance,
-  opts: FastifyCommercetoolsPluginOptions,
+  opts: FastifyCommercetoolsOptions,
   next: (err?: Error) => void
 ) => {
   const { auth, http, projectKey } = opts;

@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { fastify, FastifyInstance } from "fastify";
-import { FastifyCommercetoolsPluginOptions } from "./fastify-commercetools-opts-type";
+import { FastifyCommercetoolsOptions } from "./fastify-commercetools-options";
 import plugin from "./index";
 import fastifyCommercetools from "./fastify-commercetools";
 
@@ -13,7 +13,7 @@ jest.mock("./fastify-commercetools", () => {
     default: jest.fn(
       (
         instance: FastifyInstance,
-        options: FastifyCommercetoolsPluginOptions,
+        options: FastifyCommercetoolsOptions,
         next: (err?: Error) => void
       ) => next()
     ),
@@ -22,7 +22,7 @@ jest.mock("./fastify-commercetools", () => {
 
 describe("Plugin", () => {
   let server: FastifyInstance;
-  let opts: FastifyCommercetoolsPluginOptions;
+  let opts: FastifyCommercetoolsOptions;
 
   describe("when success", () => {
     beforeAll(() => {
