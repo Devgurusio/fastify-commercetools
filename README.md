@@ -17,7 +17,7 @@ npm i fastify-commercetools --save
 
 Add it to your project with `register` and pass it some basic options.
 
-#### Typescript
+#### JavaScript
 
 ```js
 const fp = require("fastify-plugin")();
@@ -45,7 +45,7 @@ export default fp(async (fastify, opts) => {
 });
 ```
 
-#### Typescript
+#### TypeScript
 
 ```ts
 import fp from "fastify-plugin";
