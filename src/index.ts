@@ -4,21 +4,22 @@ import fp from "fastify-plugin";
 
 import { ByProjectKeyRequestBuilder } from "@commercetools/platform-sdk/dist/declarations/src/generated/client/by-project-key-request-builder";
 
-import { FastifyCommercetoolsPluginOptions } from "./fastify-commercetools-opts-type";
+import { FastifyCommercetoolsOptions } from "./fastify-commercetools-options";
 import fastifyCommercetoolsPlugin from "./fastify-commercetools";
 
+export { FastifyCommercetoolsOptions };
 declare module "fastify" {
-  interface FastifyInstance {
+  export interface FastifyInstance {
     commercetools: {
       requestBuilder: ByProjectKeyRequestBuilder;
     };
   }
 }
 
-export default fp(
+export default fp<FastifyCommercetoolsOptions>(
   (
     fastify: FastifyInstance,
-    opts: FastifyCommercetoolsPluginOptions,
+    opts: FastifyCommercetoolsOptions,
     next: (err?: Error) => void
   ) => {
     if (!opts.http) {

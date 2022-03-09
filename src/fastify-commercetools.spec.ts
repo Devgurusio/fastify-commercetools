@@ -4,7 +4,7 @@ import { ClientBuilder } from "@commercetools/sdk-client-v2";
 import { createApiBuilderFromCtpClient } from "@commercetools/platform-sdk";
 import { ByProjectKeyRequestBuilder } from "@commercetools/platform-sdk/dist/declarations/src/generated/client/by-project-key-request-builder";
 import fetch from "isomorphic-fetch";
-import { FastifyCommercetoolsPluginOptions } from "./fastify-commercetools-opts-type";
+import { FastifyCommercetoolsOptions } from "./fastify-commercetools-options";
 import fastifyCommercetools from "./fastify-commercetools";
 declare module "fastify" {
   interface FastifyInstance {
@@ -55,7 +55,7 @@ jest.mock("@commercetools/platform-sdk", () => {
 
 describe("Commercetools Plugin", () => {
   let server: FastifyInstance;
-  let opts: FastifyCommercetoolsPluginOptions;
+  let opts: FastifyCommercetoolsOptions;
   let customFetch: (
     input: RequestInfo,
     init?: RequestInit | undefined

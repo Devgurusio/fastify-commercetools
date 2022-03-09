@@ -17,26 +17,59 @@ npm i fastify-commercetools --save
 
 Add it to your project with `register` and pass it some basic options.
 
-```js
-const fastify = require("fastify")();
+#### Typescript
 
-fastify.register(require("fastify-commercetools"), {
-  auth: {
-    host: "https://auth.commercetools.co",
-    projectKey: "projectKey",
-    credentials: {
-      clientId: "clientId",
-      clientSecret: "clientSecret"
-    }
-  },
-  http: {
-    host: "https://api.commercetools.co",
-    enableRetry: true,
-    retryConfig: {
-      maxRetries: 3
+```js
+const fp = require("fastify-plugin")();
+const fastifyCommercetools = require("fastify-commercetools");
+
+export default fp(async (fastify, opts) => {
+  fastify.register(fastifyCommercetools, {
+    auth: {
+      host: "https://auth.commercetools.co",
+      projectKey: "projectKey",
+      credentials: {
+        clientId: "clientId",
+        clientSecret: "clientSecret"
+      }
     },
-  },
-  projectKey: "projectKey"
+    http: {
+      host: "https://api.commercetools.co",
+      enableRetry: true,
+      retryConfig: {
+        maxRetries: 3
+      },
+    },
+    projectKey: "projectKey"
+  })
+});
+```
+
+#### Typescript
+
+```ts
+import fp from "fastify-plugin";
+import fastifyCommercetools, { FastifyCommercetoolsOptions } from "fastify-commercetools";
+
+export default fp<FastifyCommercetoolsOptions>(async (fastify, opts) => {
+  fastify.register(fastifyCommercetools, {
+    auth: {
+      host: "https://auth.commercetools.co",
+      projectKey: "projectKey",
+      credentials: {
+        clientId: "clientId",
+        clientSecret: "clientSecret"
+      }
+    },
+    http: {
+      host: "https://api.commercetools.co",
+      enableRetry: true,
+      retryConfig: {
+        maxRetries: 3
+      },
+    },
+    projectKey: "projectKey"
+  })
 });
 ```
 
