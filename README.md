@@ -40,6 +40,7 @@ export default fp(async (fastify, opts) => {
         maxRetries: 3
       },
     },
+    queue: { concurrency: 10 }
     projectKey: "projectKey"
   })
 });
@@ -68,6 +69,7 @@ export default fp<FastifyCommercetoolsOptions>(async (fastify, opts) => {
         maxRetries: 3
       },
     },
+    queue: { concurrency: 10 }
     projectKey: "projectKey"
   })
 });
