@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { fastify, FastifyInstance } from "fastify";
-import { ClientBuilder } from "@commercetools/sdk-client-v2";
+import { ClientBuilder, Dispatch } from "@commercetools/sdk-client-v2";
 import { createApiBuilderFromCtpClient } from "@commercetools/platform-sdk";
 import { ByProjectKeyRequestBuilder } from "@commercetools/platform-sdk/dist/declarations/src/generated/client/by-project-key-request-builder";
 import fetch from "isomorphic-fetch";
@@ -28,6 +28,8 @@ const mockClientBuilder = {
   withHttpMiddleware: jest.fn().mockReturnThis(),
   withLoggerMiddleware: jest.fn().mockReturnThis(),
   withClientCredentialsFlow: jest.fn().mockReturnThis(),
+  withMiddleware: jest.fn().mockReturnThis(),
+  withQueueMiddleware: jest.fn().mockReturnThis(),
   build: jest.fn(() => ({ id: "client" })),
 };
 
@@ -226,7 +228,145 @@ describe("Commercetools Plugin", () => {
     });
   });
 
-  describe("when auth not provided", () => {
+  describe("when middleware provided", () => {
+    beforeAll(() => {
+      opts = {
+        http: {
+          host: "https://api.commercetools.co",
+          enableRetry: true,
+          retryConfig: {
+            maxRetries: 3,
+          },
+        },
+        middleware: (next: Dispatch) => next,
+        projectKey: "projectKey",
+      };
+    });
+
+    beforeEach((done) => {
+      fastifyCommercetools(server, opts, done);
+    });
+
+    test("should call 'clientBuilder.withProjectKey'", () => {
+      expect(clientBuilder.withProjectKey).toHaveBeenCalledWith(
+        opts.projectKey
+      );
+    });
+
+    test("should call 'clientBuilder.withHttpMiddleware'", () => {
+      expect(clientBuilder.withHttpMiddleware).toHaveBeenCalledWith({
+        ...opts.http,
+        fetch,
+      });
+    });
+
+    test("should call 'clientBuilder.withLoggerMiddleware'", () => {
+      expect(clientBuilder.withLoggerMiddleware).toHaveBeenCalled();
+    });
+
+    test("should call 'clientBuilder.withMiddleware'", () => {
+      expect(clientBuilder.withMiddleware).toHaveBeenCalledWith(
+        opts.middleware
+      );
+    });
+
+    test("should call 'clientBuilder.build'", () => {
+      expect(clientBuilder.build).toHaveBeenCalled();
+    });
+
+    test("should call 'createApiBuilderFromCtpClient'", () => {
+      expect(createApiBuilderFromCtpClient).toHaveBeenCalledWith({
+        id: "client",
+      });
+    });
+
+    test("should call 'apiRoot.withProjectKey'", () => {
+      expect(apiRoot.withProjectKey).toHaveBeenCalledWith({
+        projectKey: opts.projectKey,
+      });
+    });
+
+    test("should add 'commercetools' property to fastify instance", () => {
+      expect(server).toHaveProperty("commercetools");
+    });
+
+    test("fastify instance 'commercetools' property should have 'requestBuilder' property with byProjectKeyRequestBuilder", () => {
+      expect(server.commercetools).toHaveProperty("requestBuilder", {
+        id: "byProjectKeyRequestBuilder",
+      });
+    });
+  });
+
+  describe("when queue provided", () => {
+    beforeAll(() => {
+      opts = {
+        http: {
+          host: "https://api.commercetools.co",
+          enableRetry: true,
+          retryConfig: {
+            maxRetries: 3,
+          },
+        },
+        queue: { concurrency: 10 },
+        projectKey: "projectKey",
+      };
+    });
+
+    beforeEach((done) => {
+      fastifyCommercetools(server, opts, done);
+    });
+
+    test("should call 'clientBuilder.withProjectKey'", () => {
+      expect(clientBuilder.withProjectKey).toHaveBeenCalledWith(
+        opts.projectKey
+      );
+    });
+
+    test("should call 'clientBuilder.withHttpMiddleware'", () => {
+      expect(clientBuilder.withHttpMiddleware).toHaveBeenCalledWith({
+        ...opts.http,
+        fetch,
+      });
+    });
+
+    test("should call 'clientBuilder.withLoggerMiddleware'", () => {
+      expect(clientBuilder.withLoggerMiddleware).toHaveBeenCalled();
+    });
+
+    test("should call 'clientBuilder.withQueueMiddleware'", () => {
+      expect(clientBuilder.withQueueMiddleware).toHaveBeenCalledWith(
+        opts.queue
+      );
+    });
+
+    test("should call 'clientBuilder.build'", () => {
+      expect(clientBuilder.build).toHaveBeenCalled();
+    });
+
+    test("should call 'createApiBuilderFromCtpClient'", () => {
+      expect(createApiBuilderFromCtpClient).toHaveBeenCalledWith({
+        id: "client",
+      });
+    });
+
+    test("should call 'apiRoot.withProjectKey'", () => {
+      expect(apiRoot.withProjectKey).toHaveBeenCalledWith({
+        projectKey: opts.projectKey,
+      });
+    });
+
+    test("should add 'commercetools' property to fastify instance", () => {
+      expect(server).toHaveProperty("commercetools");
+    });
+
+    test("fastify instance 'commercetools' property should have 'requestBuilder' property with byProjectKeyRequestBuilder", () => {
+      expect(server.commercetools).toHaveProperty("requestBuilder", {
+        id: "byProjectKeyRequestBuilder",
+      });
+    });
+  });
+
+  describe("when only required properties", () => {
     describe("when fetch provided", () => {
       beforeAll(() => {
         opts = {
@@ -264,6 +404,14 @@ describe("Commercetools Plugin", () => {
 
       test("should not call 'clientBuilder.withClientCredentialsFlow'", () => {
         expect(clientBuilder.withClientCredentialsFlow).not.toHaveBeenCalled();
+      });
+
+      test("should not call 'clientBuilder.withMiddleware'", () => {
+        expect(clientBuilder.withMiddleware).not.toHaveBeenCalled();
+      });
+
+      test("should not call 'clientBuilder.withQueueMiddleware'", () => {
+        expect(clientBuilder.withQueueMiddleware).not.toHaveBeenCalled();
       });
 
       test("should call 'clientBuilder.build'", () => {
@@ -330,6 +478,14 @@ describe("Commercetools Plugin", () => {
 
       test("should not call 'clientBuilder.withClientCredentialsFlow'", () => {
         expect(clientBuilder.withClientCredentialsFlow).not.toHaveBeenCalled();
+      });
+
+      test("should not call 'clientBuilder.withMiddleware'", () => {
+        expect(clientBuilder.withMiddleware).not.toHaveBeenCalled();
+      });
+
+      test("should not call 'clientBuilder.withQueueMiddleware'", () => {
+        expect(clientBuilder.withQueueMiddleware).not.toHaveBeenCalled();
       });
 
       test("should call 'clientBuilder.build'", () => {

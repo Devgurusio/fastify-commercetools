@@ -21,7 +21,7 @@ export default (
   opts: FastifyCommercetoolsOptions,
   next: (err?: Error) => void
 ) => {
-  const { auth, http, projectKey } = opts;
+  const { auth, http, middleware, queue, projectKey } = opts;
 
   const httpMiddlewareOptions: HttpMiddlewareOptions = {
     ...http,
@@ -39,6 +39,14 @@ export default (
       fetch: auth.fetch || fetch,
     };
     clientBuilder.withClientCredentialsFlow(authMiddlewareOptions);
+  }
+
+  if (middleware) {
+    clientBuilder.withMiddleware(middleware);
+  }
+
+  if (queue) {
+    clientBuilder.withQueueMiddleware(queue);
   }
 
   const ctpClient: Client = clientBuilder.build();
