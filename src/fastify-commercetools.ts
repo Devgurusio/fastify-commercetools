@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { FastifyInstance } from "fastify";
 import {
   AuthMiddlewareOptions,
@@ -56,8 +55,7 @@ export default (
     projectKey,
   });
 
-  // eslint-disable-next-line no-param-reassign
-  fastify.commercetools = { requestBuilder };
+  fastify.decorate("commercetools", { requestBuilder });
 
   next();
 };
