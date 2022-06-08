@@ -37,7 +37,10 @@ export default fp(async (fastify, opts) => {
       host: "https://api.commercetools.co",
       enableRetry: true,
       retryConfig: {
-        maxRetries: 3
+        maxRetries: 3,
+        backoff = true,
+        retryDelay = 200,
+        retryCodes = [503, 504]
       },
     },
     queue: { concurrency: 10 }

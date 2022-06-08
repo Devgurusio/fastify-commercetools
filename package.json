@@ -1,6 +1,6 @@
 {
   "name": "fastify-commercetools",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Fastify commercetools plugin",
   "main": "dist/index.js",
   "scripts": {
@@ -48,8 +48,8 @@
   },
   "homepage": "https://github.com/Devgurusio/fastify-commercetools#readme",
   "dependencies": {
-    "@commercetools/platform-sdk": "^2.5.0",
-    "@commercetools/sdk-client-v2": "^1.2.0",
+    "@commercetools/platform-sdk": "^2.7.0",
+    "@commercetools/sdk-client-v2": "^1.4.0",
     "fastify-plugin": "^3.0.1",
     "isomorphic-fetch": "^3.0.0"
   },
